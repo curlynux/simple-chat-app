@@ -27,7 +27,7 @@ var Signup = () =>
                 Password
                 <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </label>
-            <button type="submit">sign up</button>
+            <button type="submit" disabled={validated_form}>sign up</button>
         </form>
     </div>)
 }

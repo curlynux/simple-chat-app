@@ -5,6 +5,7 @@ var Login = () =>
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    fetch("http://localhost:8080/signup")
     return(
     <div>
         <h1>Login</h1>
