@@ -5,12 +5,15 @@ const app = express();
 const path = require("path");
 const morgan = require("morgan");
 require("dotenv").config();
+const userRoutes = require("./api/routes/userRoutes");
 
 mongoose.set("strictQuery", true);
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+
+app.use(userRoutes)
 
 app.use((req, res, next) =>
     {
