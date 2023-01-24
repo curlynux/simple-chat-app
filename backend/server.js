@@ -1,6 +1,7 @@
 const http = require("http");
 const express = require("express");
 const app = require("./app.js");
+const { log } = require("console");
 
 const normalize_port = val =>
 {
@@ -14,7 +15,7 @@ const normalize_port = val =>
     return false;
 }
 
-const port = normalize_port(process.env.PORT || 8080)
+const port = normalize_port(process.env.PORT)
 app.set("port", port);
 
 const error_handler = error =>
@@ -41,12 +42,21 @@ const error_handler = error =>
 }
 
 const server = http.createServer(app);
-const { networkInterfaces  } = require("os");
 
 server.on("error", error_handler);
+server.listen(process.env.PORT, "0.0.0.0")
 server.on("listening", () =>
     {
         const address = server.address();
         const bind = typeof addr === "string" ? "pipe" + addr: "port:" + port;
-        server.listen(port, "0.0.0.0");
+        console.log(`server is running on: ${server.address().address}`);
     });
+
+
+
+    var ifs = require('os').networkInterfaces();
+    var result = Object.keys(ifs)
+      .map(x => [x, ifs[x].filter(x => x.family === 'IPv4')[0]])
+      .filter(x => x[1])
+      .map(x => x[1].address);
+      console.log(`server running on local address: ${result[0]}:${port}, \nnetwork address: ${result[1]}:${port}`);
