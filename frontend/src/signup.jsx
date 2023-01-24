@@ -3,22 +3,23 @@ import { useState } from "react";
 var Signup = () => 
 {
     const [email, setEmail] = useState("");
+    const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
 
-        function handle_submit(event) 
+        async function handle_submit(event) 
         {
             event.preventDefault();
-            fetch("http://localhost:1337/signup", 
+            await fetch("http://localhost:1337/signup", 
             {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({email, password}),
+                body: JSON.stringify({login, email, password}),
                 mode: "cors"
             })
-            .then((response) => console.log(response))
+            .then(response => console.log(response.json().then(data => console.log(data))))
             .catch(error => console.error(error))
         }
 
@@ -27,8 +28,12 @@ var Signup = () =>
         <h1>sign up</h1>
         <form >
             <label>
-                Email or login
-                <input name="emailOrLogin" type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                Login
+                <input name="login" type="text" value={login} onChange={(e) => setLogin(e.target.value)} />
+            </label>
+            <label>
+                Email
+                <input name="email" type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
             </label>
             <label>
                 Password

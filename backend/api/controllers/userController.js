@@ -2,8 +2,9 @@ const User = require("../models/userModel");
 const express = require("express");
 const app = express();
 
-exports.signup = (req, res, next) => 
+exports.signup = async (req, res, next) => 
 {
+
     console.log(req.body);
     const user = new User({
         login: req.body.login, 
@@ -11,5 +12,6 @@ exports.signup = (req, res, next) =>
         password: req.body.password, 
         role: req.body.role
     });
-    // user.save().then(() => console.log("user saved successfully !"))
+    await user.save().then(() => res.status(201).json({message: "User created successfully !"}))
+    console.log("user saved successfully !");
 }
