@@ -5,6 +5,21 @@ var Login = () =>
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     
+    const submit_credentials = (event) => 
+    {
+        event.preventDefault(event)
+        fetch("http://localhost:1337", 
+        {
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            method: "GET",
+            mode: "cors"
+        })
+        .then((response) => response.json().then(data => console.log(data)))
+    }
+
     return(
     <div>
         <h1>Login</h1>
@@ -17,7 +32,7 @@ var Login = () =>
                 password
                 <input type="password" name="password" value={password} onChange={e => setPassword(e.target.value)}/>
             </label>
-            <button>Login</button>
+            <button onClick={submit_credentials}>Login</button>
         </form>
     </div>)
 }
