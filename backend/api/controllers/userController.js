@@ -37,13 +37,23 @@ exports.login = (req, res, next) =>
     User.findOne({email: req.body.email} || {login: req.body.login})
     .then((user) => 
     {
-        try {
-            res.status(200).json({userId: user._id, 
-                token: jwt.sign({userId: user._id}, "RANDOM_TOKEN_SECRET", {expiresIn: "24h"}
-            )
+        bcrypt.compare(req.body.password, user.password)
+        .then((valid) => 
+        {
+            if(!valid)
+                return res.status(401).json({message: "user credentials inccorect !"})
+            else
+            {
+                try {
+                    res.status(200).json({user_id: user._id, 
+                        token: jwt.sign({user_id: user._id}, "RANDOM_TOKEN_SECRET", {expires_in: "24h"}
+                    )
+                });
+                // req.setHeader()
+                } catch (error) {
+                    res.status(401).json({message: "login info incorect"})
+                }
+            }
         });
-        } catch (error) {
-            res.status(401).json({message: "login info incorect"})
-        }
     });
 }
