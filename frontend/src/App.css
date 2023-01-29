@@ -1,0 +1,31 @@
+.wrapper 
+{
+    width: 50%;
+    margin: auto;
+    display: flex;
+}
+
+.allInput 
+{
+    display: flex;
+}
+
+.chat
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.messageHistory 
+{
+    width: 100%;
+    border: 3px solid black;
+}
+
+.messageHistory p
+{
+    border: 3px solid black;
+    display: flex;
+    width: min-content;
+    margin: 0px;
+}
