@@ -1,8 +1,9 @@
 const User = require("../models/userModel");
-const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { log } = require("console");
+const io = require("socket.io")
+
 exports.signup = async (req, res, next) => 
 {
     console.log(req.body);

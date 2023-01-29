@@ -8,7 +8,8 @@
     "mongoose": "^6.8.4",
     "mongoose-unique-validator": "^3.1.0",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "socket.io": "^4.5.4"
   },
   "scripts": {
     "dev": "nodemon server.js"
