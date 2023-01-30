@@ -6,7 +6,7 @@ import App from "./App";
 import Login from "./components/Login";
 import Signup from "./components/signup";
 import Error from "./components/error";
-// import PrivateRoote from "./components/privateRoote";
+import PrivateRoote from "./components/privateRoote";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -14,9 +14,9 @@ root.render(
   <React.StrictMode>
     <Router>
       <Routes>
-        {/* <Route element={<PrivateRoote/>}> */}
+        <Route element={<PrivateRoote/>}>
           <Route path="/home" element={<App/>}/>
-        {/* </Route> */}
+        </Route>
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/" element={<Login/>}/>
         <Route path="*" element={<Error/>}/>
