@@ -1,23 +1,26 @@
-const { Socket } = require("socket.io");
 const app = require("./app");
 const server = require("http").Server(app)
-// const io = require("socket.io")(server)
-const {WebSocket, createWebSocketStream, WebSocketServer} = require("ws");
+const {createWebSocketStream, WebSocketServer} = require("ws");
 const wss = new WebSocketServer({server})
-// const ws = new WebSocket("wss://localhost:1337");
-
 
 wss.on("connection", (ws) => 
 {
+    console.log("user connected !");
     const duplex = createWebSocketStream(ws, {encoding: "utf8"});
-    duplex.write("curlynux write in the stream !");
-    duplex.on("data", (data) => console.log(`data from duplex stream: ${data}`))
+    
+    duplex.on("data", (data) => {
+        console.log(`data from duplex stream: ${data}`)
+        duplex.write("curlynux write in the stream !");
+        duplex.write("curlynux love solving problems !");
+    });
     ws.on("message", (data) => 
     {
         console.log(`data received from react: ${data}`);
     });
     ws.send("and it's a sent message !")
+    ws.on("close", () => console.log("user left the chat !"))
 });
+
 
 const normalize_port = val =>
 {
@@ -27,7 +30,6 @@ const normalize_port = val =>
         return val;
     if(port >= 0)
         return port;
-
     return false;
 }
 

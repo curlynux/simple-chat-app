@@ -8,10 +8,10 @@ function App() {
 
   return (
     <div className="App">
-      <div className="wrapper">
         <h1>simple chat app</h1>
-        <TextField />
-      </div>
+        <div className="wrapper">
+          <TextField />
+        </div>
     </div>
   );
 }
