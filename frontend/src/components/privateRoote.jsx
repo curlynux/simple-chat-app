@@ -1,19 +1,19 @@
-import { useEffect } from "react";
-import { useNavigate, Outlet} from "react-router-dom";
-function PrivateRoote() 
-{
-    const navigate = useNavigate()
-    const token = JSON.parse(localStorage.getItem("token"));
-   
-    
-        useEffect(() => 
-        {
-            if(token) 
-                navigate("/home", {replace: true})
-            if(!token)
-                navigate("/", {replace: true})
-        }, [navigate, token])
-        return <Outlet/>
-}
+// // import { useEffect } from "react";
+// import { useNavigate, Outlet} from "react-router-dom";
+// function PrivateRoote() 
+// {
+//     const Navigate = useNavigate()
+//     const token = JSON.parse(localStorage.getItem("token"));
+//     return token ? <Outlet /> :<Navigate to="/"/> 
+// }
 
-export default PrivateRoote;
+// export default PrivateRoote;
+
+// // // useEffect(() => 
+//         // // {
+//         //     if(token) 
+//         //         <Navigate to="/home"/>
+//         //     if(!token)
+//         //         <Navigate to="/"/>
+//         // // }, [navigate, token])
+//         // return <Outlet/>

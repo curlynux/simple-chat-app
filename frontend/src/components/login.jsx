@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {  useState } from "react";
 // import { useNavigate } from "react-router-dom";
 var Login = () => 
 {
@@ -9,6 +9,12 @@ var Login = () =>
 
     // useEffect(() => {if(token) navigate("/home", {replace: true})}
     // , [token, navigate])
+    //  useEffect(() => {
+    //     if(token)
+    //         navigate("/home", {replace: true})
+    //     // else navigate("/", {replace: true})
+    //     }, [navigate, token])
+        
     const submit_credentials = (event) => 
     {
         event.preventDefault(event)

@@ -1,5 +1,5 @@
 // import { useNavigate } from "react-router-dom";
-// import LogoutButton from "../Logout";
+import LogoutButton from "../Logout";
 const { useState, useEffect } = require("react")
 
 function Text() 
@@ -18,7 +18,6 @@ function Text()
         ws.onmessage = (event) => 
             console.log(`message received TEXT: ${event.data}`);
     }, []);
-    // useEffect(() => {if (!token) navigate("/", {replace: true})}, [token, navigate])
     const [text, setText] = useState("");
     return(<div className="chat">
         <div className="messageHistory">
@@ -28,7 +27,7 @@ function Text()
             <input type="text" value={text} onChange={e => setText(e.target.value)}/>
             <input type="submit" name="sendMessage" value="send"/>
         </div>
-        {/* <LogoutButton/> */}
+        <LogoutButton/>
     </div>)
 }
 
