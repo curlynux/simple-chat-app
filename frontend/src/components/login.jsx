@@ -1,10 +1,10 @@
 import { useState } from "react";
-
+// import { useNavigate } from "react-router-dom";
 var Login = () => 
 {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    localStorage.setItem("TEST", "just a test")
+    // const navigate = useNavigate();
     const submit_credentials = (event) => 
     {
         event.preventDefault(event)
@@ -20,12 +20,10 @@ var Login = () =>
         })
         .then((response) => response.json().then(data => 
         {
-            localStorage.setItem("test", "test")
-            console.log("TEST");
             localStorage.setItem("token", JSON.stringify(data.token));
             localStorage.setItem("userId", JSON.stringify(data.userId));
-            console.log("TEST 2");
-            console.log(data)
+            console.log(data);
+            // navigate("/home");
         }))
         .catch(error => console.log(error))
         

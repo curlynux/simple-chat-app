@@ -1,13 +1,16 @@
-import { Outlet, useNavigate } from "react-router-dom";
-
+import { useNavigate, Outlet} from "react-router-dom";
+import { useEffect } from "react";
 function PrivateRoote() 
 {
-    const Navigate = useNavigate()
+    const navigate = useNavigate()
     const token = JSON.parse(localStorage.getItem("token"));
-    
-    if(token) <Navigate to="/home" />
-    else <Navigate to="/" />
-        return <Outlet />
+   
+    useEffect(() => 
+    {
+        if(token) navigate("/home")
+        else navigate("/")
+    }, [token, navigate]);
+    return <Outlet/>;
 }
 
 export default PrivateRoote;

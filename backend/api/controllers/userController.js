@@ -45,8 +45,8 @@ exports.login = (req, res, next) =>
             else
             {
                 try {
-                    res.status(200).json({user_id: user._id, 
-                        token: jwt.sign({user_id: user._id}, "RANDOM_TOKEN_SECRET", {expiresIn: "24h"}
+                    res.status(200).json({userId: user._id, 
+                        token: jwt.sign({userId: user._id}, "RANDOM_TOKEN_SECRET", {expiresIn: "24h"}
                     )
                 });
                 // req.setHeader()

@@ -4,12 +4,12 @@ function LogoutButton()
 {
     // const navigate = Navigate();
     const token = localStorage.getItem("token");
-    const userId = localStorage.getItem("user_id");
+    const userId = localStorage.getItem("userId");
 
     if(!token && !userId)
         Navigate("/")
     localStorage.removeItem("token")
-    localStorage.removeItem("user_id")
+    localStorage.removeItem("userId")
     return(<button name="logout">logout</button>)
 }
 
