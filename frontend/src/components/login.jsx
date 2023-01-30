@@ -1,18 +1,10 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 var Login = () => 
 {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate();
-    const token = localStorage.getItem("token");
-
-    useEffect(() => 
-        {
-            if(token) navigate("/", {replace: true})
-        }, [navigate, token]);
-
+    localStorage.setItem("TEST", "just a test")
     const submit_credentials = (event) => 
     {
         event.preventDefault(event)
@@ -28,8 +20,11 @@ var Login = () =>
         })
         .then((response) => response.json().then(data => 
         {
+            localStorage.setItem("test", "test")
+            console.log("TEST");
             localStorage.setItem("token", JSON.stringify(data.token));
-            localStorage.setItem("user_id", JSON.stringify(data.userId));
+            localStorage.setItem("userId", JSON.stringify(data.userId));
+            console.log("TEST 2");
             console.log(data)
         }))
         .catch(error => console.log(error))

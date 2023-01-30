@@ -6,12 +6,12 @@ import { useEffect } from "react";
 import TextField from "./components/chat/textField";
 
 function App() {
-  const token = localStorage.getItem("token");
+  const token = JSON.parse(localStorage.getItem("token"));
   const navigate = useNavigate();
   useEffect(() => 
   {
-    if(token) navigate("/", {replace: true})
-    else console.log("no token !");
+    if(token) navigate("/home", {replace: true})
+    else navigate("/", {replace: true})
   }, [token, navigate]);
 
   return (

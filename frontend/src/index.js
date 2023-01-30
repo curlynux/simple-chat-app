@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import App from "./App";
-import Login from "./components/login";
+import Login from "./components/Login";
 import Signup from "./components/signup";
 import Error from "./components/error";
 import PrivateRoote from "./components/privateRoote";
@@ -15,10 +15,10 @@ root.render(
     <Router>
       <Routes>
         <Route element={<PrivateRoote/>}>
-          <Route path="/" element={<App/>}/>
+          <Route path="/home" element={<App/>}/>
         </Route>
         <Route path="/signup" element={<Signup/>}/>
-        <Route path="login" element={<Login/>}/>
+        <Route path="/" element={<Login/>}/>
         <Route path="*" element={<Error/>}/>
       </Routes>
     </Router>

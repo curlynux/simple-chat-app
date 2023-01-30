@@ -2,7 +2,6 @@ const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { log } = require("console");
-const io = require("socket.io")
 
 exports.signup = async (req, res, next) => 
 {
@@ -47,12 +46,12 @@ exports.login = (req, res, next) =>
             {
                 try {
                     res.status(200).json({user_id: user._id, 
-                        token: jwt.sign({user_id: user._id}, "RANDOM_TOKEN_SECRET", {expires_in: "24h"}
+                        token: jwt.sign({user_id: user._id}, "RANDOM_TOKEN_SECRET", {expiresIn: "24h"}
                     )
                 });
                 // req.setHeader()
                 } catch (error) {
-                    res.status(401).json({message: "login info incorect"})
+                    res.status(401).json({message: `and it's an error ! ${error}`})
                 }
             }
         });

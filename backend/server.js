@@ -1,7 +1,23 @@
-const http = require("http");
-const express = require("express");
-const app = require("./app.js");
-const { log } = require("console");
+const { Socket } = require("socket.io");
+const app = require("./app");
+const server = require("http").Server(app)
+// const io = require("socket.io")(server)
+const {WebSocket, createWebSocketStream, WebSocketServer} = require("ws");
+const wss = new WebSocketServer({server})
+// const ws = new WebSocket("wss://localhost:1337");
+
+
+wss.on("connection", (ws) => 
+{
+    const duplex = createWebSocketStream(ws, {encoding: "utf8"});
+    duplex.write("curlynux write in the stream !");
+    duplex.on("data", (data) => console.log(`data from duplex stream: ${data}`))
+    ws.on("message", (data) => 
+    {
+        console.log(`data received from react: ${data}`);
+    });
+    ws.send("and it's a sent message !")
+});
 
 const normalize_port = val =>
 {
@@ -40,8 +56,6 @@ const error_handler = error =>
             throw error;
     }
 }
-
-const server = http.createServer(app);
 
 server.on("error", error_handler);
 server.listen(process.env.PORT, "0.0.0.0")

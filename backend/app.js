@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const app = express();
-const path = require("path");
 const morgan = require("morgan");
 require("dotenv").config();
 const userRoutes = require("./api/routes/userRoutes");
