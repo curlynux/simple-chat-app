@@ -1,24 +1,22 @@
 import {  useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 var Login = () => 
 {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    // const navigate = useNavigate();
-    // const token = JSON.parse(localStorage.getItem("token"));
+    const navigate = useNavigate();
+    const token = JSON.parse(localStorage.getItem("token"));
 
-    // useEffect(() => {if(token) navigate("/home", {replace: true})}
-    // , [token, navigate])
-    //  useEffect(() => {
-    //     if(token)
-    //         navigate("/home", {replace: true})
-    //     // else navigate("/", {replace: true})
-    //     }, [navigate, token])
+    useEffect(() => 
+    {
+        if(token) navigate("/home", {replace: true})
+    }, [token, navigate])
         
-    const submit_credentials = (event) => 
+    const submit_credentials = async (event) => 
     {
         event.preventDefault(event)
-        fetch("http://localhost:1337/login", 
+        await fetch("http://localhost:1337/login", 
         {
             headers: {
                 Accept: "application/json",
@@ -28,12 +26,16 @@ var Login = () =>
             mode: "cors",
             body: JSON.stringify({email, password})
         })
-        .then((response) => response.json().then(data => 
+        .then(async (response) => 
         {
-            localStorage.setItem("token", JSON.stringify(data.token));
-            localStorage.setItem("userId", JSON.stringify(data.userId));
-            console.log(data);
-        }))
+            return await response.json().then(data => 
+                {
+                    localStorage.setItem("token", JSON.stringify(data.token));
+                    localStorage.setItem("userId", JSON.stringify(data.userId));
+                    console.log(data);
+                    navigate("/home", {replace: true})
+                });
+        })
         .catch(error => console.log(error))
         
     }

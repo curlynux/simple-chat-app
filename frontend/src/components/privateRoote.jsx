@@ -4,7 +4,7 @@ function PrivateRoote()
 {
     const Navigate = useNavigate()
     const token = JSON.parse(localStorage.getItem("token"));
-    return token ? <Outlet /> :<Navigate to="/"/> 
+    return !token ? <Navigate to="/"/> :<Outlet /> 
 }
 
 export default PrivateRoote;
