@@ -5,6 +5,10 @@ var Login = () =>
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     // const navigate = useNavigate();
+    // const token = JSON.parse(localStorage.getItem("token"));
+
+    // useEffect(() => {if(token) navigate("/home", {replace: true})}
+    // , [token, navigate])
     const submit_credentials = (event) => 
     {
         event.preventDefault(event)
@@ -23,7 +27,6 @@ var Login = () =>
             localStorage.setItem("token", JSON.stringify(data.token));
             localStorage.setItem("userId", JSON.stringify(data.userId));
             console.log(data);
-            // navigate("/home");
         }))
         .catch(error => console.log(error))
         
