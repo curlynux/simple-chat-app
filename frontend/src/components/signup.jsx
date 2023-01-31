@@ -39,7 +39,7 @@ var Signup = () =>
                 Password
                 <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </label>
-            <button type="submit" onClick={handle_submit}>sign up</button>
+            <button type="submit" onPointerEnter={handle_submit}>sign up</button>
         </form>
     </div>)
 }
