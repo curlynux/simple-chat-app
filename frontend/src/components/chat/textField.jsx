@@ -4,8 +4,6 @@ const { useState, useEffect } = require("react")
 
 function Text() 
 {
-    // const token = JSON.parse(localStorage.getItem("token"));
-    // const navigate = useNavigate();
     useEffect(() => 
     {
         const URL = "ws://localhost:1337";

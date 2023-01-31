@@ -1,8 +1,16 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css");
+
+*
+{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 .wrapper 
 {
-    width: 100%;
-    margin: auto;
     display: flex;
+    border: 1px solid #000000;
 }
 
 .allInput 
@@ -14,15 +22,22 @@
 {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
+    height: calc(100vh - 95px);
     margin: 0 auto;
+    border: 3px;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    box-sizing: border-box;
 }
 
 .messageHistory 
 {
     width: 100%;
-    border: 3px solid black;
-    height: 250px;
+    
+    border: 1px solid black;
+    height: calc(100vh - 95px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -31,16 +46,16 @@
 
 .messageHistory p
 {
-    border: 3px solid black;
-    width: max-content;
-    height: fit-content;
+    border: 1px solid black;
+    width: 45%;
+    /* height: fit-content; */
     margin: 0px;
     display: flex;
 }
 
 input[type="text"] 
 {
-    border: 3px solid black;
+    border: 1px solid black;
     width: 100%;
 }
 
@@ -52,4 +67,14 @@ input[type="text"]
 .messageHistory p:nth-child(2) 
 {
     margin-left: auto;
+}
+
+@media only screen 
+    and (device-width : 375px) 
+    and (device-height : 812px) 
+{
+    .chat, .messageHistory
+    {
+        height: calc(100vh - 95px);
+    }
 }
