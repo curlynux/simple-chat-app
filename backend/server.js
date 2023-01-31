@@ -9,9 +9,7 @@ wss.on("connection", (ws) =>
     const duplex = createWebSocketStream(ws, {encoding: "utf8"});
     
     duplex.on("data", (data) => {
-        console.log(`data from duplex stream: ${data}`)
-        duplex.write("curlynux write in the stream !");
-        duplex.write("curlynux love solving problems !");
+        console.log(`data from duplex stream: ${data}`);
     });
     ws.on("message", (data) => 
     {

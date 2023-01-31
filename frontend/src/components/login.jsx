@@ -53,7 +53,7 @@ var Login = () =>
                 password
                 <input type="password" name="password" value={password} onChange={e => setPassword(e.target.value)}/>
             </label>
-            <button onPointerEnter={submit_credentials}>Login</button>
+            <button onClick={submit_credentials}>Login</button>
         </form>
     </div>)
 }

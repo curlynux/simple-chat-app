@@ -6,7 +6,7 @@ var Signup = () =>
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
 
-        async function handle_submit(event) 
+        async function handleSubmit(event) 
         {
             event.preventDefault();
             await fetch("http://localhost:1337/signup", 
@@ -39,7 +39,7 @@ var Signup = () =>
                 Password
                 <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </label>
-            <button type="submit" onPointerEnter={handle_submit}>sign up</button>
+            <button type="submit" onCLick={handleSubmit}>sign up</button>
         </form>
     </div>)
 }
