@@ -21,7 +21,7 @@ function Text()
     async function outMessage(event) 
     {
         event.preventDefault(event)
-        await fetch("http://localhost:1337/outmessage", 
+        await fetch("http://localhost:1337/message", 
         {
             method: "POST",
             mode: "cors",

@@ -2,15 +2,15 @@ const wss = require("ws");
 const express = require("express");
 const app = express();
 const auth = require("../../middlewares/auth");
-const Message = require("../models/messagesModel");
+// const Message = require("../models/messagesModel");
 
 console.log(auth);
 module.exports.sendMessage = (req, res, next) =>
 {
-    console.log(req.body);
-    console.log(auth);
+    return res.json({data: "hello from message post route !"})
+}
 
-    const message = new Message({...req.body});
-    res.status === 404
-    return res.status(404).json({message: "this error"})
+module.exports.testRoute = (req, res, next) => 
+{
+    return res.json({data: "hello from message get route !"})
 }

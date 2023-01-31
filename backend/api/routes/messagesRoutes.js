@@ -3,4 +3,7 @@ const router = express.Router();
 const message = require("../controllers/mesageController");
 const auth = require("../../middlewares/auth");
 
-router.post("/outmessage", auth, message.sendMessage)
+router.post("/message", auth, message.sendMessage);
+router.get("/message", message.testRoute);
+
+module.exports = router;
