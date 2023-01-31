@@ -18,9 +18,31 @@ function Text()
             console.log(`message received from node.js: ${event.data}`);
     }, []);
 
+    async function getUser() 
+    {
+        const userId = JSON.parse(localStorage.getItem("userId"));
+        return await fetch("http://localhost:1337/user", 
+            {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+                    "X-Authenticated-Userid": JSON.parse(localStorage.getItem("userId"))
+                },
+                body: JSON.stringify({userId})
+            }).then(async (response) => 
+            {
+                 return await response.json()
+                .then(async (data) => { return await console.log(data)});
+            }).catch(async (error) => { return await console.log(error)});
+    }
+    getUser()
+
     async function outMessage(event) 
     {
         event.preventDefault(event)
+        // const userId = localStorage.getItem("userId");
+
         await fetch("http://localhost:1337/message", 
         {
             method: "POST",

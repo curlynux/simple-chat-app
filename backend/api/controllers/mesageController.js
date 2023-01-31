@@ -7,6 +7,7 @@ const auth = require("../../middlewares/auth");
 console.log(auth);
 module.exports.sendMessage = (req, res, next) =>
 {
+    console.log(req.body);
     return res.json({data: "hello from message post route !"})
 }
 

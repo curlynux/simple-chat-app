@@ -32,28 +32,35 @@ exports.signup = async (req, res, next) =>
     console.log("user saved successfully !");
 }
 
-exports.login = (req, res, next) =>
+exports.login = async (req, res, next) =>
 {
-    User.findOne({email: req.body.email} || {login: req.body.login})
-    .then((user) => 
+    await User.findOne({email: req.body.email} || {login: req.body.login})
+    .then(async (user) => 
     {
-        bcrypt.compare(req.body.password, user.password)
-        .then((valid) => 
+        await bcrypt.compare(req.body.password, user.password)
+        .then(async (valid) => 
         {
             if(!valid)
                 return res.status(401).json({message: "user credentials inccorect !"})
             else
             {
                 try {
-                    res.status(200).json({userId: user._id, 
+                    return await res.status(200).json({userId: user._id, 
                         token: jwt.sign({userId: user._id}, "RANDOM_TOKEN_SECRET", {expiresIn: "24h"}
                     )
                 });
                 // req.setHeader()
                 } catch (error) {
-                    res.status(401).json({message: `and it's an error ! ${error}`})
+                    return res.status(401).json({message: `and it's an error ! ${error}`})
                 }
             }
         });
     });
+}
+
+exports.user = async (req, res, next) => 
+{
+    return await User.findOne({userId: req.body.userId})
+    .then(async (user) => {return await res.status(200).json(user)})
+    .catch((error) => res.status(400).json({message: `got a new error: ${error}`}))
 }
