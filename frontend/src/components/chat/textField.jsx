@@ -4,7 +4,7 @@ const { useState, useEffect } = require("react")
 
 function Text() 
 {
-    const [text, setText] = useState("");
+    const [message, setMessage] = useState("");
     useEffect(() => 
     {
         const URL = "ws://localhost:1337";
@@ -38,7 +38,10 @@ function Text()
                 }).then(async (response) => 
                 {
                      return await response.json()
-                    .then(async (data) => { return await console.log(data)});
+                    .then(async (data) => { 
+                        console.log(data)
+                        return await localStorage.setItem("login", JSON.stringify(data.login))
+                    });
                 }).catch(async (error) => { return await console.log(error)});
         }
         getUser()
@@ -47,7 +50,8 @@ function Text()
     async function outMessage(event) 
     {
         event.preventDefault(event)
-        // const userId = localStorage.getItem("userId");
+        const userId = JSON.parse(localStorage.getItem("userId"));
+        const login =  JSON.parse(localStorage.getItem("login"));
 
         await fetch("http://localhost:1337/message", 
         {
@@ -59,7 +63,7 @@ function Text()
                 Accept: "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({text})
+            body: JSON.stringify({userId, login, message, date: JSON.stringify(Date())})
         }).then(async (response) => 
         {
             return await response.json().then((data) => console.log(data))
@@ -72,7 +76,7 @@ function Text()
             <p>text 2</p>
         </div>
         <form>
-            <input type="text" name="text" value={text} onChange={(e) => setText(e.target.value)} />
+            <input type="text" name="text" value={message} onChange={(e) => setMessage(e.target.value)} />
             <button onClick={outMessage} name="send" type="submit">send</button>
         </form>
         <LogoutButton/>

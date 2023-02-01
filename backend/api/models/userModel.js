@@ -5,16 +5,21 @@ const User = new mongoose.Schema({
     login: {
         type: String,
         unique: true,
-        required: true
+        required: true,
+        lowercase: true,
+        trim: true
     },
     email: {
         type: String,
         unique: true,
-        required: true
+        required: true,
+        lowercase: true,
+        trim: true
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     role: { type: String, default: "client" }
 });

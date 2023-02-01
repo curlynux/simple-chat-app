@@ -62,10 +62,8 @@ exports.user = async (req, res, next) =>
     console.log(req.body.userId);
     return await User.findOne({_id: req.body.userId})
     .then(async (user) => {
-        console.log(user._id);
         console.log(user);
-        console.log(JSON.stringify(req.body.userId));
-
+        // console.
         return await res.status(200).json(user)
     })
     .catch((error) => res.status(400).json({message: `got a new error: ${error}`}))
