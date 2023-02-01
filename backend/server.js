@@ -9,13 +9,21 @@ wss.on("connection", (ws) =>
     const duplex = createWebSocketStream(ws, {encoding: "utf8"});
     
     duplex.on("data", (data) => {
-        console.log(`data from duplex stream: ${data}`);
+        console.log("TEST DATA 1 \n", data);
+        console.log(`data from duplex stream: 2 \n${data}`);
+        console.log("||| ---------------  WEBSOCKET DUPLEX STREAMING DATA PIPELINE ---------------- |||");
     });
-    ws.on("message", (data) => 
+    ws.on("message", (message) => 
     {
-        console.log(`data received from react: ${data}`);
+        console.log("TEST BUFFER 3\n", Buffer.from(message).toString());
+        // const data = JSON.parse(message)
+        console.log(`data received from react: 4 \n ${message}`);
+        var data = new Object(Buffer.from(message).toString())
+        console.log("TYPE OF DATA ---------------------------------------------");
+        console.log(typeof(data));
+        console.log(data);
+        // ws.send(JSON.stringify(data))
     });
-    ws.send("and it's a sent message !")
     ws.on("close", () => console.log("user left the chat !"))
 });
 

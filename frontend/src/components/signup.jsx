@@ -29,7 +29,7 @@ var Signup = () =>
     return(
     <div className="signup">
         <h1>sign up</h1>
-        <form >
+        <form>
             <label>
                 Login
                 <input name="login" type="text" value={login} onChange={(e) => setLogin(e.target.value)} />
@@ -42,7 +42,7 @@ var Signup = () =>
                 Password
                 <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </label>
-            <button type="submit" onCLick={handleSubmit}>sign up</button>
+            <button type="submit" onClick={handleSubmit}>sign up</button>
         </form>
     </div>)
 }

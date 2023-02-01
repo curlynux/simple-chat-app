@@ -5,25 +5,30 @@ const { useState, useEffect } = require("react")
 function Text() 
 {
     const [message, setMessage] = useState("");
+    const userId = JSON.parse(localStorage.getItem("userId"));
+    const login =  JSON.parse(localStorage.getItem("login"));
+    var date = JSON.stringify(Date());
+    const WEBSOCKET_URL = "ws://localhost:1337";
+    const ws = new WebSocket(WEBSOCKET_URL)
     useEffect(() => 
     {
-        const URL = "ws://localhost:1337";
-        const ws = new WebSocket(URL)
+        const data = {userId, login, message, date}    
         ws.onopen = () => 
         {
             console.log("user connected !");
-            ws.send("it's from react");
+            ws.send("one test YESS YEAH tex CURLYNUX !");
+            ws.send(JSON.stringify(data))
         }
         ws.onmessage = (event) => 
             console.log(`message received from node.js: ${event.data}`);
-    }, []);
+    }, [userId, login, message, date]);
+    
 
     useEffect(() => 
     {
         async function getUser() 
         {
-            const userId = JSON.parse(localStorage.getItem("userId"));
-            console.log(`userId: ${userId}`, JSON.stringify(userId));
+            console.log(`userId: ${userId}`);
             return await fetch("http://localhost:1337/user", 
                 {
                     method: "POST",
@@ -45,13 +50,11 @@ function Text()
                 }).catch(async (error) => { return await console.log(error)});
         }
         getUser()
-    }, []);
+    }, [userId]);
 
     async function outMessage(event) 
     {
         event.preventDefault(event)
-        const userId = JSON.parse(localStorage.getItem("userId"));
-        const login =  JSON.parse(localStorage.getItem("login"));
 
         await fetch("http://localhost:1337/message", 
         {
