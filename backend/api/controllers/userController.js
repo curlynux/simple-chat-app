@@ -1,7 +1,7 @@
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { log } = require("console");
+const { log, error } = require("console");
 
 exports.signup = async (req, res, next) => 
 {
@@ -27,9 +27,8 @@ exports.signup = async (req, res, next) =>
     }
     const options = {upsert: true}
     User.findOneAndUpdate(query, update, options)
-    .catch(error => console.error(error))
-    await user.save().then(() => res.status(201).json({message: "User created successfully !"}))
-    console.log("user saved successfully !");
+    .catch(async (error) => {return await error(error)})
+    await user.save().then(async () => {return await res.status(201).json({message: "User created successfully !"})})
 }
 
 exports.login = async (req, res, next) =>
@@ -60,7 +59,14 @@ exports.login = async (req, res, next) =>
 
 exports.user = async (req, res, next) => 
 {
-    return await User.findOne({userId: req.body.userId})
-    .then(async (user) => {return await res.status(200).json(user)})
+    console.log(req.body.userId);
+    return await User.findOne({_id: req.body.userId})
+    .then(async (user) => {
+        console.log(user._id);
+        console.log(user);
+        console.log(JSON.stringify(req.body.userId));
+
+        return await res.status(200).json(user)
+    })
     .catch((error) => res.status(400).json({message: `got a new error: ${error}`}))
 }

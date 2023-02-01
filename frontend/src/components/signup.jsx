@@ -19,8 +19,11 @@ var Signup = () =>
                 body: JSON.stringify({login, email, password}),
                 mode: "cors"
             })
-            .then(response => console.log(response.json().then(data => console.log(data))))
-            .catch(error => console.error(error))
+            .then(async (response) => 
+            {
+                return await response.json().then(async (data) => {return await console.log(data)})
+            })
+            .catch(async (error) => {return await console.error(error)})
         }
 
     return(
