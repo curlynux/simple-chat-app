@@ -2,6 +2,28 @@ import "../assets/login.css";
 import {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import {loginSlice, setError, setIsLoading} from "../reduxLogic/reducers/loginReducer";
+import { useDispatch, useSelector } from "@reduxjs/toolkit";
+import { useMutation } from "react-query";
+
+const useSignup = () => 
+{
+    const dispatch = useDispatch();
+    const selector = useSelector();
+    const mutate = useMutation();
+    const login = selector(state => state.login.login);
+    const email = selector(state => state.login.email);
+    const password = selector(state => state.login.password);
+    const isLoading = selector(state => state.login.isLoading);
+    const error = selector(state => state.login.error);
+    const [mutateLogin, {isLoading: isLoginLoading, error: loginError}] = mutate(
+        async ({login, email, password}) => 
+        {
+            
+        }
+    )
+}
+
 var Login = () => 
 {
     const [email, setEmail] = useState("");

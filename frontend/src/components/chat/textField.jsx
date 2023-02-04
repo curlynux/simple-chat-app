@@ -4,26 +4,15 @@ const { useState, useEffect } = require("react")
 
 function Text() 
 {
-    const [message, setMessage] = useState("");
-    const userId = JSON.parse(localStorage.getItem("userId"));
-    const login =  JSON.parse(localStorage.getItem("login"));
-    var date = JSON.stringify(Date());
-    const WEBSOCKET_URL = "ws://localhost:1337";
-    const ws = new WebSocket(WEBSOCKET_URL)
-    useEffect(() => 
-    {
-        const data = {userId, login, message, date}    
-        ws.onopen = () => 
-        {
-            console.log("user connected !");
-            ws.send("one test YESS YEAH tex CURLYNUX !");
-            ws.send(JSON.stringify(data))
-        }
-        ws.onmessage = (event) => 
-            console.log(`message received from node.js: ${event.data}`);
-    }, [userId, login, message, date]);
     
-
+    const [isFetched, setIsFetched] = useState(false);
+    const [message, setMessage] = useState("");
+    const [userId, setUserId] = useState();
+    const [login, setLogin] =  useState();
+    var [date, setDate] = useState();
+    const [socket, setSocket] = useState();
+    
+    
     useEffect(() => 
     {
         async function getUser() 
@@ -34,8 +23,8 @@ function Text()
                     method: "POST",
                     mode: "cors",
                     headers: {
-                        "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-                        "X-Authenticated-Userid": JSON.parse(localStorage.getItem("userId")),
+                        "Authorization": `Bearer ${JSON.parse(token)}`,
+                        "X-Authenticated-Userid": JSON.parse(userId),
                         Accept: "application/json",
                         "Content-Type": "application/json"
                     },
@@ -45,12 +34,30 @@ function Text()
                      return await response.json()
                     .then(async (data) => { 
                         console.log(data)
-                        return await localStorage.setItem("login", JSON.stringify(data.login))
+                        return await localStorage.setItem("login", setLogin(JSON.stringify(data.login)))
                     });
                 }).catch(async (error) => { return await console.log(error)});
         }
         getUser()
     }, [userId]);
+
+    useEffect(() => 
+    {
+        setSocket(new WebSocket("wss://localhost:8000"))
+        socket.onopen = () => 
+        {
+            console.log("user connected !");
+            socket.send("one test YESS YEAH tex CURLYNUX !");
+            socket.send(JSON.stringify({
+                userId: userId, 
+                login: login, 
+                message: message, 
+                date: date
+            }))
+        }
+        socket.onmessage = (event) => 
+            console.log(`message received from node.js: ${event.data}`);
+    }, [userId, login, message, date, socket]);
 
     async function outMessage(event) 
     {
@@ -61,12 +68,12 @@ function Text()
             method: "POST",
             mode: "cors",
             headers: {
-                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-                "X-Authenticated-Userid":`${JSON.parse(localStorage.getItem("userId"))}`,
+                "Authorization": `Bearer ${JSON.parse(token)}`,
+                "X-Authenticated-Userid":`${JSON.parse(userId)}`,
                 Accept: "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({userId, login, message, date: JSON.stringify(Date())})
+            body: JSON.stringify({userId, login, message, date: setDate(Date())})
         }).then(async (response) => 
         {
             return await response.json().then((data) => console.log(data))

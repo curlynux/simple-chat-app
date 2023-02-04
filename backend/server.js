@@ -1,7 +1,7 @@
 const app = require("./app");
 const server = require("http").Server(app)
 const {createWebSocketStream, WebSocketServer} = require("ws");
-const wss = new WebSocketServer({server})
+const wss = new WebSocketServer({port: 8000})
 
 wss.on("connection", (ws) => 
 {
@@ -9,20 +9,16 @@ wss.on("connection", (ws) =>
     const duplex = createWebSocketStream(ws, {encoding: "utf8"});
     
     duplex.on("data", (data) => {
-        console.log("TEST DATA 1 \n", data);
-        console.log(`data from duplex stream: 2 \n${data}`);
         console.log("||| ---------------  WEBSOCKET DUPLEX STREAMING DATA PIPELINE ---------------- |||");
+        console.log(data);
     });
     ws.on("message", (message) => 
     {
-        console.log("TEST BUFFER 3\n", Buffer.from(message).toString());
-        // const data = JSON.parse(message)
-        console.log(`data received from react: 4 \n ${message}`);
-        var data = new Object(Buffer.from(message).toString())
-        console.log("TYPE OF DATA ---------------------------------------------");
-        console.log(typeof(data));
-        console.log(data);
-        // ws.send(JSON.stringify(data))
+        var data = JSON.stringify(message.toString())
+        var userData = JSON.parse(data)
+        console.log(typeof(newData));
+        var test = {data: userData}
+        console.log(test);
     });
     ws.on("close", () => console.log("user left the chat !"))
 });
