@@ -38,7 +38,7 @@ function Text()
                     });
                 }).catch(async (error) => { return await console.log(error)});
         }
-        getUser()
+        // getUser()
     }, [userId]);
 
     useEffect(() => 

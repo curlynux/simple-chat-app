@@ -59,8 +59,8 @@ exports.login = async (req, res, next) =>
 
 exports.user = async (req, res, next) => 
 {
-    console.log(req.body.userId);
-    return await User.findOne({_id: req.body.userId})
+    console.log(req.body);
+    return await User.findOne({_id: req.body.email})
     .then(async (user) => {
         console.log(user);
         // console.
