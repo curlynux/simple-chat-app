@@ -1,23 +1,24 @@
 import { useNavigate } from "react-router-dom";
-function LogoutButton() 
-{
+import { useSelector, useDispatch } from "react-redux";
+import { setToken, setUserId } from "../reduxLogic/reducers/loginReducer";
+function LogoutButton() {
     const navigate = useNavigate();
-    const token = localStorage.getItem("token");
-    const userId = localStorage.getItem("userId");
+    const dispatch = useDispatch();
+    const token = useSelector((state) => state.login.token);
+    const userId = useSelector((state) => state.login.userId);
+    // console.log(token, userId)
 
-    function logout()
-    {
-        
-            if(token && userId)
-            {
-                navigate("/", {replace: true})
-                localStorage.removeItem("token")
-                localStorage.removeItem("userId")
-            }
-      
+    function logout() {
+
+        if (token && userId) {
+            navigate("/", { replace: true })
+            dispatch(setToken(""))
+            dispatch(setUserId(""))
+        }
+
     }
 
-    return(<button name="logout" onClick={logout}>logout</button>)
+    return (<button name="logout" onClick={logout}>logout</button>)
 }
 
 export default LogoutButton;

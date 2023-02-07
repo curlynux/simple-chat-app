@@ -44,7 +44,7 @@ exports.login = async (req, res, next) =>
             else
             {
                 try {
-                    return await res.status(200).json({userId: user._id, 
+                    return await res.status(200).json({userId: user._id, login: user.login, 
                         token: jwt.sign({userId: user._id}, "RANDOM_TOKEN_SECRET", {expiresIn: "24h"}
                     )
                 });
@@ -55,16 +55,4 @@ exports.login = async (req, res, next) =>
             }
         });
     });
-}
-
-exports.user = async (req, res, next) => 
-{
-    console.log(req.body);
-    return await User.findOne({_id: req.body.email})
-    .then(async (user) => {
-        console.log(user);
-        // console.
-        return await res.status(200).json(user)
-    })
-    .catch((error) => res.status(400).json({message: `got a new error: ${error}`}))
 }
