@@ -6,13 +6,13 @@ function Text() {
 
     const [isFetched, setIsFetched] = useState(false);
     const [message, setMessage] = useState("");
-    const [userId, setUserId] = useState();
     const [login, setLogin] = useState();
     const [date, setDate] = useState();
+    const userId = useSelector((state) => state.login.userId);
     const [socket, setSocket] = useState(new WebSocket("ws://[::]:8000"));
     const token = useSelector((state) => state.login.token);
     console.log(token)
-
+    console.log("USERID", userId)
     useEffect(() => {
         socket.onopen = () => {
             console.log("user connected !");

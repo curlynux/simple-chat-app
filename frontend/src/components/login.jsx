@@ -17,11 +17,9 @@ var Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const login = useSelector((state) => state.login.login)
     const email = useSelector((state) => state.login.email)
     const password = useSelector((state) => state.login.password);
     const token = useSelector((state) => state.login.token);
-    const userId = useSelector((state) => state.login.userId);
     const isLoading = useSelector((state) => state.login.isLoading);
 
     const dispatchEmail = (event) => dispatch(setEmail(event.target.value));
@@ -43,8 +41,8 @@ var Login = () => {
             })
             .then(async (response) => {
                 return await response.json().then(data => {
-                    dispatch(setToken(data.token))
-                    dispatch(setUserId(data.userId))
+                    dispatch(setToken(data.token));
+                    dispatch(setUserId(data));
                     dispatch(setLogin(data.login));
                     console.log(data);
                     navigate("/home", { replace: true });
