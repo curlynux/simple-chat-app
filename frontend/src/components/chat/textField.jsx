@@ -18,6 +18,12 @@ function Text() {
     const date = useSelector((state) => state.outMessage.date);
     const userId = useSelector((state) => state.login.userId);
     const token = useSelector((state) => state.login.token);
+
+    const dispatchMessage = dispatch(setMessage(message));
+    const dispatchLogin = dispatch(setLogin(login));
+    const dispatchDate = dispatch(setDate(date));
+    const dispatchUserId = dispatch(setUserId(userId));
+    // const dispatchToken = dispatch(token);
     console.log(token)
     console.log("login", login)
     console.log("USERID", userId)
@@ -27,10 +33,10 @@ function Text() {
             console.log("user connected !");
             socket.send("one test YESS YEAH tex CURLYNUX !");
             socket.send(JSON.stringify({
-                userId: userId,
-                login: login,
-                message: message,
-                date: dispatch(setDate(Date()))
+                userId: dispatchUserId,
+                login: dispatchLogin,
+                message: dispatchMessage,
+                date: dispatchDate
             }))
         }
         socket.onmessage = (event) =>
@@ -45,12 +51,16 @@ function Text() {
                 method: "POST",
                 mode: "cors",
                 headers: {
-                    "Authorization": `Bearer ${JSON.parse(token)}`,
-                    "X-Authenticated-Userid": `${JSON.parse(userId)}`,
+                    "Authorization": `Bearer ${token}`,
                     Accept: "application/json",
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ userId, login, message, date: setDate(Date()) })
+                body: JSON.stringify({
+                    userId: dispatchUserId,
+                    login: dispatchLogin,
+                    message: dispatchMessage,
+                    date: dispatchDate
+                })
             }).then(async (response) => {
                 return await response.json().then((data) => console.log(data))
             }).catch((error) => console.error(error))
@@ -58,8 +68,13 @@ function Text() {
     }
     return (<div className="chat">
         <div className="messageHistory">
-            <p>text</p>
             <p>text 2</p>
+            <div className="inMessage">
+                <p>{dispatchMessage.payload}</p>
+                <p>{dispatchLogin.payload}</p>
+                <p>{dispatchDate.payload}</p>
+                <p>{dispatchUserId.payload}</p>
+            </div>
         </div>
         <form>
             <input type="text" name="text" value={message} onChange={(e) => dispatch(setMessage(e.target.value))} />

@@ -9,7 +9,7 @@ module.exports.sendMessage = async (req, res, next) =>
 {
     console.log(req.body);
     const message = new Message({})
-    return await res.json({data: "hello from message post route !"})
+    return await res.status(201).json(req.body)
 }
 
 module.exports.testRoute = (req, res, next) => 
