@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setToken, setUserId, setLogin, setEmail, setPassword } from "../reduxLogic/reducers/loginReducer";
+import { setToken, setLogin, setEmail, setPassword } from "../reduxLogic/reducers/loginReducer";
 function LogoutButton() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -17,7 +17,6 @@ function LogoutButton() {
             dispatch(setEmail(""));
             dispatch(setLogin(""));
             dispatch(setPassword(""));
-            dispatch(setUserId(""));
         }
 
     }

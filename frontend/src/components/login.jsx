@@ -7,7 +7,6 @@ import {
     setEmail,
     setPassword,
     setToken,
-    setUserId,
     setError,
     setIsLoading,
 } from "../reduxLogic/reducers/loginReducer";
@@ -41,7 +40,6 @@ var Login = () => {
             .then(async (response) => {
                 return await response.json().then(data => {
                     dispatch(setToken(data.token));
-                    dispatch(setUserId(data.userId));
                     dispatch(setLogin(data.login));
                     console.log(data);
                     navigate("/home", { replace: true });
