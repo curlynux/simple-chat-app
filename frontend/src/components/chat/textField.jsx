@@ -4,16 +4,15 @@ import LogoutButton from "../Logout";
 const { useState, useEffect } = require("react")
 function Text() {
 
-    const [isFetched, setIsFetched] = useState(false);
     const [message, setMessage] = useState("");
-    const [login, setLogin] = useState();
+    const login = useSelector((state) => state.login.login);
     const [date, setDate] = useState();
     const userId = useSelector((state) => state.login.userId);
-    const [socket, setSocket] = useState(new WebSocket("ws://[::]:8000"));
     const token = useSelector((state) => state.login.token);
     console.log(token)
     console.log("USERID", userId)
     useEffect(() => {
+        const socket = new WebSocket("ws://[::]:8000");
         socket.onopen = () => {
             console.log("user connected !");
             socket.send("one test YESS YEAH tex CURLYNUX !");
@@ -26,7 +25,7 @@ function Text() {
         }
         socket.onmessage = (event) =>
             console.log(`message received from node.js: ${event.data}`);
-    }, [userId, login, message, date, socket]);
+    }, [userId, login, message, date]);
 
     async function outMessage(event) {
         event.preventDefault(event)

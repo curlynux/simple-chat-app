@@ -1,5 +1,4 @@
 import "../assets/login.css";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,13 +41,16 @@ var Login = () => {
             .then(async (response) => {
                 return await response.json().then(data => {
                     dispatch(setToken(data.token));
-                    dispatch(setUserId(data));
+                    dispatch(setUserId(data.userId));
                     dispatch(setLogin(data.login));
                     console.log(data);
                     navigate("/home", { replace: true });
                 });
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error)
+                dispatch(setError(error))
+            })
         setIsLoading(true)
     }
 
@@ -76,7 +78,7 @@ var Login = () => {
                 .catch((error) => console.log(`oups error ! ${error}`))
         }
         if (isLoading === true) getLogin();
-    }, []);
+    }, [email, isLoading]);
 
     return (
         <div>
