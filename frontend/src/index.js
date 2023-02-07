@@ -12,10 +12,14 @@ import { Provider } from "react-redux";
 import rootReducer from './reduxLogic/reducers/store';
 import { configureStore } from "@reduxjs/toolkit";
 import loginSlice from "./reduxLogic/reducers/loginReducer";
+import inMessageSlice from "./reduxLogic/reducers/inMessageReducer"
+import outMessageSlice from "./reduxLogic/reducers/outMessageReducer"
 
 const store = configureStore({
   reducer: {
-    login: loginSlice.reducer
+    login: loginSlice.reducer,
+    inMessage: inMessageSlice.reducer,
+    outMessage: outMessageSlice.reducer
   }})
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

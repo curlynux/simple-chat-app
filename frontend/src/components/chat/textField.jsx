@@ -1,15 +1,25 @@
 // import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import LogoutButton from "../Logout";
-const { useState, useEffect } = require("react")
+import {
+    setLogin,
+    setUserId,
+    setMessage,
+    setDate
+} from "../../reduxLogic/reducers/outMessageReducer";
+const { useEffect } = require("react")
+
+
 function Text() {
 
-    const [message, setMessage] = useState("");
+    const dispatch = useDispatch();
+    const message = useSelector((state) => state.outMessage.message);
     const login = useSelector((state) => state.login.login);
-    const [date, setDate] = useState();
+    const date = useSelector((state) => state.outMessage.date);
     const userId = useSelector((state) => state.login.userId);
     const token = useSelector((state) => state.login.token);
     console.log(token)
+    console.log("login", login)
     console.log("USERID", userId)
     useEffect(() => {
         const socket = new WebSocket("ws://[::]:8000");
@@ -20,7 +30,7 @@ function Text() {
                 userId: userId,
                 login: login,
                 message: message,
-                date: date
+                date: dispatch(setDate(Date()))
             }))
         }
         socket.onmessage = (event) =>
@@ -52,7 +62,7 @@ function Text() {
             <p>text 2</p>
         </div>
         <form>
-            <input type="text" name="text" value={message} onChange={(e) => setMessage(e.target.value)} />
+            <input type="text" name="text" value={message} onChange={(e) => dispatch(setMessage(e.target.value))} />
             <button onClick={outMessage} name="send" type="submit">send</button>
         </form>
         <LogoutButton />

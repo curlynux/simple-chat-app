@@ -5,7 +5,6 @@ function LogoutButton() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const token = useSelector((state) => state.login.token);
-    // const userId = useSelector((state) => state.login.userId);
 
     console.log("token", token)
 

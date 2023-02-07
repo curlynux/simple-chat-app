@@ -9,10 +9,10 @@ const outMessageSlice = createSlice({
         message: ""
     },
     reducers: {
-        setLogin: (state) => state.outMessage.login,
-        setUserId: (state) => state.outMessage.userId,
-        setDate: (state) => state.outMessage.date,
-        setMessage: (state) => state.outMessage.message
+        setLogin: (state, action) => {state.login = action.payload},
+        setUserId: (state, action) => {state.userId = action.payload},
+        setDate: (state, action) => {state.date = action.payload},
+        setMessage: (state, action) => {state.message = action.payload}
     }
 });
 
