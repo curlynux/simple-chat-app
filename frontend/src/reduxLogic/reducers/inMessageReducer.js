@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 const inMessageSlice = createSlice({
     name: "inMessage",
     initialState: {

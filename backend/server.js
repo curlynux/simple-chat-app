@@ -1,9 +1,10 @@
 const app = require("./app");
 const server = require("http").Server(app)
 const {createWebSocketStream, WebSocketServer} = require("ws");
-const wss = new WebSocketServer({port: 8000})
+const wss = new WebSocketServer({port: 8000});
 
-console.log(wss.address());
+// console.log(wss.address());
+
 wss.on("connection", (ws) => 
 {
     console.log("user connected !");
