@@ -11,15 +11,23 @@ wss.on("connection", (ws) =>
     
     duplex.on("data", (data) => {
         console.log("||| ---------------  WEBSOCKET DUPLEX STREAMING DATA PIPELINE ---------------- |||");
-        console.log(data);
+        console.log(data, typeof(data));
+        try {
+            var object = JSON.parse(data);
+            console.log(object);
+        } catch (error) {
+            console.error(error);
+        }
     });
     ws.on("message", (message) => 
     {
-        var data = JSON.stringify(message.toString())
-        var userData = JSON.parse(data)
-        console.log(typeof(newData));
-        var test = {data: userData}
-        console.log(test);
+        try {
+            var data = Buffer.from(message).toString("ascii");    
+            var obj = JSON.parse(data)
+            console.log("OBJECT",obj, typeof(obj));        
+        } catch (error) {
+            console.error(error);
+        }
     });
     ws.on("close", () => console.log("user left the chat !"))
 });

@@ -6,6 +6,7 @@ import {
     setLogin,
     setEmail,
     setPassword,
+    setUserId,
     setToken,
     setError,
     setIsLoading,
@@ -19,6 +20,7 @@ var Login = () => {
     const password = useSelector((state) => state.login.password);
     const token = useSelector((state) => state.login.token);
     const isLoading = useSelector((state) => state.login.isLoading);
+    const userId = useSelector((state) => state.login.userId);
 
     const dispatchEmail = (event) => dispatch(setEmail(event.target.value));
     const dispatchPassword = (event) => dispatch(setPassword(event.target.value));
@@ -41,6 +43,7 @@ var Login = () => {
                 return await response.json().then(data => {
                     dispatch(setToken(data.token));
                     dispatch(setLogin(data.login));
+                    dispatch(setUserId(data.userId))
                     console.log(data);
                     navigate("/home", { replace: true });
                 });

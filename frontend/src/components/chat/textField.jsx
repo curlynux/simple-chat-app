@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import LogoutButton from "../Logout";
 import {
     setLogin,
-    setUserId,
     setMessage,
     setDate
 } from "../../reduxLogic/reducers/outMessageReducer";
+import { setUserId } from "../../reduxLogic/reducers/loginReducer";
 const { useEffect } = require("react")
 
 
@@ -21,9 +21,22 @@ function Text() {
 
     const dispatchMessage = dispatch(setMessage(message));
     const dispatchLogin = dispatch(setLogin(login));
-    const dispatchDate = dispatch(setDate(date));
+    const dispatchDate = dispatch(setDate(formatTime()));
     const dispatchUserId = dispatch(setUserId(userId));
-    // const dispatchToken = dispatch(token);
+
+    function formatTime() {
+        var date = new Date();
+        var hour = date.getHours();
+        var minute = date.getMinutes();
+        var second = date.getSeconds();
+
+        var year = date.getFullYear();
+        var month = date.getMonth();
+        var day = date.getDay();
+
+        return (`${hour}:${minute}:${second}`)
+    }
+    console.log(formatTime());
     console.log(token)
     console.log("login", login)
     console.log("USERID", userId)
@@ -33,10 +46,7 @@ function Text() {
             console.log("user connected !");
             socket.send("one test YESS YEAH tex CURLYNUX !");
             socket.send(JSON.stringify({
-                userId: dispatchUserId,
-                login: dispatchLogin,
-                message: dispatchMessage,
-                date: dispatchDate
+                login, userId, message, date
             }))
         }
         socket.onmessage = (event) =>
@@ -56,10 +66,10 @@ function Text() {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    userId: dispatchUserId,
-                    login: dispatchLogin,
-                    message: dispatchMessage,
-                    date: dispatchDate
+                    userId: userId,
+                    login: login,
+                    message: message,
+                    date: date
                 })
             }).then(async (response) => {
                 return await response.json().then((data) => console.log(data))
@@ -70,8 +80,7 @@ function Text() {
         <div className="messageHistory">
             <p>text 2</p>
             <div className="inMessage">
-                <p>{dispatchMessage.payload}</p>
-                <p>{dispatchLogin.payload}</p>
+                <p><strong>login: {dispatchLogin.payload} </strong> message: {dispatchMessage.payload}</p>
                 <p>{dispatchDate.payload}</p>
                 <p>{dispatchUserId.payload}</p>
             </div>
