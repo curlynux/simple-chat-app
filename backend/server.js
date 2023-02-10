@@ -3,8 +3,6 @@ const server = require("http").Server(app)
 const {createWebSocketStream, WebSocketServer} = require("ws");
 const wss = new WebSocketServer({port: 8000});
 
-// console.log(wss.address());
-
 wss.on("connection", (ws) => 
 {
     console.log("user connected !");
@@ -15,7 +13,7 @@ wss.on("connection", (ws) =>
         console.log(data, typeof(data));
         try {
             var object = JSON.parse(data);
-            console.log(object);
+            console.log(object, typeof(object));
         } catch (error) {
             console.error(error);
         }

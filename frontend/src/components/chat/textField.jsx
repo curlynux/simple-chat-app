@@ -37,14 +37,14 @@ function Text() {
         return (`${hour}:${minute}:${second}`)
     }
     console.log(formatTime());
-    console.log(token)
-    console.log("login", login)
-    console.log("USERID", userId)
+    console.log(token);
+    console.log("login", login);
+    console.log("USERID", userId);
     useEffect(() => {
         const socket = new WebSocket("ws://[::]:8000");
         socket.onopen = () => {
             console.log("user connected !");
-            socket.send("one test YESS YEAH tex CURLYNUX !");
+            socket.send(JSON.stringify("TEST"))
             socket.send(JSON.stringify({
                 login, userId, message, date
             }))
