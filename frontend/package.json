@@ -2,6 +2,8 @@
   "name": "simple-chat-app",
   "version": "0.1.0",
   "private": true,
+  "compamy": "THE V1 COMPANY",
+  "description":"a simple chat app in realtime",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.2",
     "@testing-library/jest-dom": "^5.16.5",

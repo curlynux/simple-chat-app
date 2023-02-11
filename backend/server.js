@@ -1,35 +1,35 @@
 const app = require("./app");
 const server = require("http").Server(app)
-const {createWebSocketStream, WebSocketServer} = require("ws");
-const wss = new WebSocketServer({port: 8000});
+// const {createWebSocketStream, WebSocketServer} = require("ws");
+// const wss = new WebSocketServer({port: 8000});
 
-wss.on("connection", (ws) => 
-{
-    console.log("user connected !");
-    const duplex = createWebSocketStream(ws, {encoding: "utf8"});
+// wss.on("connection", (ws) => 
+// {
+//     console.log("user connected !");
+    // const duplex = createWebSocketStream(ws, {encoding: "utf8"});
     
-    duplex.on("data", (data) => {
-        console.log("||| ---------------  WEBSOCKET DUPLEX STREAMING DATA PIPELINE ---------------- |||");
-        console.log(data, typeof(data));
-        try {
-            var object = JSON.parse(data);
-            console.log(object, typeof(object));
-        } catch (error) {
-            console.error(error);
-        }
-    });
-    ws.on("message", (message) => 
-    {
-        try {
-            var data = Buffer.from(message).toString("ascii");    
-            var obj = JSON.parse(data)
-            console.log("OBJECT",obj, typeof(obj));        
-        } catch (error) {
-            console.error(error);
-        }
-    });
-    ws.on("close", () => console.log("user left the chat !"))
-});
+    // duplex.on("data", (data) => {
+    //     console.log("||| ---------------  WEBSOCKET DUPLEX STREAMING DATA PIPELINE ---------------- |||");
+    //     console.log(data, typeof(data));
+    //     try {
+    //         var object = JSON.parse(data);
+    //         console.log(object, typeof(object));
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // });
+    // ws.on("message", (message) => 
+    // {
+    //     try {
+    //         var data = Buffer.from(message).toString("ascii");    
+    //         var obj = JSON.parse(data)
+    //         console.log("OBJECT",obj, typeof(obj));        
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // });
+//     ws.on("close", () => console.log("user left the chat !"))
+// });
 
 
 const normalize_port = val =>

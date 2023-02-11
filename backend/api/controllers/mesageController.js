@@ -1,20 +1,13 @@
 const auth = require("../../middlewares/auth");
 const Message = require("../models/messagesModel");
-const {WebSocket, createWebSocketStream} = require("ws");
-const ws = new WebSocket("ws://[::]:8000");
-const duplex = createWebSocketStream(ws, {encoding: "utf8"});
+const WebSocketServer = require("../../websocketServer");
 
-ws.on("open", () => 
+WebSocketServer.on("connection", (ws) => 
 {
-    try {
-        console.log("this is from server")
-        duplex.on("data", (data) => 
-        {
-            console.log(`data stream from messageController: ${data}`)
-        });
-    } catch (error) {
-        console.error(error);
-    }
+    ws.on("message", (message) => 
+    {
+        console.log(`log message: ${message}`);
+    });
 });
 
 console.log(auth);
