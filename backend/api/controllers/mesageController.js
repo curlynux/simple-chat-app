@@ -1,12 +1,21 @@
 const auth = require("../../middlewares/auth");
 const Message = require("../models/messagesModel");
 const WebSocketServer = require("../../websocketServer");
-
+const {createWebSocketStream} = require("ws");
 WebSocketServer.on("connection", (ws) => 
 {
-    ws.on("message", (message) => 
+    const duplex = createWebSocketStream(ws, {encoding: "utf8"});
+    console.log("user connected !");
+    duplex.on("data", (data) => 
     {
-        console.log(`log message: ${message}`);
+        console.log(`data from duplex: ${data}`);
+        console.log(data);
+        try {
+            const object = JSON.parse(data)
+            console.log(object);
+        } catch (error) {
+            console.error(error);
+        }
     });
 });
 
