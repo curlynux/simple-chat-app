@@ -6,10 +6,7 @@ function LogoutButton() {
     const dispatch = useDispatch();
     const token = useSelector((state) => state.login.token);
 
-    console.log("token", token)
-
     function logout() {
-        console.log("clicked !", token)
         if (token) {
             navigate("/", { replace: true })
             dispatch(setToken(""));

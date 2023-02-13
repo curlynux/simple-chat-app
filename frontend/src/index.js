@@ -6,20 +6,17 @@ import App from "./App";
 import Login from "./components/Login";
 import Signup from "./components/signup";
 import Error from "./components/error";
-import PrivateRoote from "./components/privateRoote";
+// import PrivateRoote from "./components/privateRoote";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import { Provider } from "react-redux";
-import rootReducer from './reduxLogic/reducers/store';
 import { configureStore } from "@reduxjs/toolkit";
 import loginSlice from "./reduxLogic/reducers/loginReducer";
-import inMessageSlice from "./reduxLogic/reducers/inMessageReducer"
-import outMessageSlice from "./reduxLogic/reducers/outMessageReducer"
+import messageSlice from './reduxLogic/reducers/clientReducer';
 
 const store = configureStore({
   reducer: {
     login: loginSlice.reducer,
-    inMessage: inMessageSlice.reducer,
-    outMessage: outMessageSlice.reducer
+    message: messageSlice.reducer,
   }})
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
