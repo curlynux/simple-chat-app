@@ -2,6 +2,7 @@ const auth = require("../../middlewares/auth");
 const Message = require("../models/messagesModel");
 const WebSocketServer = require("../../websocketServer");
 const {createWebSocketStream} = require("ws");
+const User = require("../models/userModel");
 
 WebSocketServer.on("connection", (ws) => 
 {
@@ -24,3 +25,6 @@ WebSocketServer.on("connection", (ws) =>
     });
    
 });
+
+module.exports.friends = (req, res, next) => 
+    User.find().then((user) => res.status(200).json(user));

@@ -1,12 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import LogoutButton from "../Logout";
 import { setMessage, setDate } from "../../reduxLogic/reducers/clientReducer";
+import Friends from "./friends";
 
 const socket = new WebSocket("ws://[::]:8000");
 
 function Message() {
-
-
     const dispatch = useDispatch();
     const message = useSelector((state) => state.message.message);
     const date = useSelector((state) => state.message.date);
@@ -30,6 +29,7 @@ function Message() {
 
     async function handleMessge(event) {
         event.preventDefault(event)
+        // if (!socket) socket = new WebSocket("ws://[::]:8000");
 
         socket.onopen = () => {
             console.log("user connected !");
@@ -40,9 +40,6 @@ function Message() {
         socket.send(JSON.stringify({
             login, userId, message, date, token
         }));
-
-        socket.onmessage = (event) =>
-            console.log(`message received from node.js: ${event.data}`);
         console.log("message sent !")
     }
 
@@ -64,6 +61,7 @@ function Message() {
             <button name="send" onClick={handleMessge} type="submit">send</button>
         </form>
         <LogoutButton />
+        <Friends />
     </div>)
 }
 
