@@ -2,7 +2,6 @@ const auth = require("../../middlewares/auth");
 const Message = require("../models/messagesModel");
 const WebSocketServer = require("../../websocketServer");
 const {createWebSocketStream} = require("ws");
-// const ws = require("ws");
 
 WebSocketServer.on("connection", (ws) => 
 {
@@ -16,29 +15,12 @@ WebSocketServer.on("connection", (ws) =>
     {
         try {
             const object = JSON.parse(message);
-            console.log(object);
+            console.log("MESSAGE 2",object);
+            // const msg = new Message(object);
+            // msg.save().then(() => console.log("msg saved !"));
         } catch (error) {
             console.error(error)
         }
     });
    
 });
-
-module.exports.sendMessage = async (req, res, next) =>
-    {
-        console.log(req.body);
-        // const message = new Message({})
-        
-        ws.on("message", (message) => 
-        {
-            console.log(`new message ${message}`);
-        });
-        return await res.status(201).json(req.body)
-    }
-
-
-    module.exports.testRoute = async (req, res, next) => 
-    {
-        console.log("TEST ROUTE");
-        return await res.status(200).json({message: "test route !"})
-    }

@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import LogoutButton from "../Logout";
 import { setMessage, setDate } from "../../reduxLogic/reducers/clientReducer";
-const socket = new WebSocket("ws://[::]:8000");
 
+const socket = new WebSocket("ws://[::]:8000");
 
 function Message() {
 
@@ -23,15 +23,20 @@ function Message() {
         return (`${hour}:${minute}:${second}`)
     }
 
+    async function returnDate() {
+        return await dispatch(setDate(formatTime()));
+    }
+    returnDate();
 
     async function handleMessge(event) {
         event.preventDefault(event)
+
         socket.onopen = () => {
             console.log("user connected !");
-            socket.send(JSON.stringify("TEST"))
-
+            socket.send(JSON.stringify("TEST"));
         }
-        dispatch(setDate(formatTime()));
+        console.log(date);
+        returnDate();
         socket.send(JSON.stringify({
             login, userId, message, date, token
         }));
@@ -56,7 +61,7 @@ function Message() {
         </div>
         <form>
             <input type="text" name="text" value={message} onChange={(e) => dispatch(setMessage(e.target.value))} />
-            <button onClick={handleMessge} name="send" type="submit">send</button>
+            <button name="send" onClick={handleMessge} type="submit">send</button>
         </form>
         <LogoutButton />
     </div>)

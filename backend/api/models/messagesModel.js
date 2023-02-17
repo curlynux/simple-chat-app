@@ -5,14 +5,14 @@ const Message = new mongoose.Schema({
     userId: {
         type: String,
         required: true,
-        unique: true,
+        unique: false,
         lowercase: true,
         trim: true
     },
     login: {
         type: String,
         required: true,
-        unique: true,
+        unique: false,
         lowercase: true,
         trim: true
     },
