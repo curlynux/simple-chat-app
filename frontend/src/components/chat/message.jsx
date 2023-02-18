@@ -3,7 +3,7 @@ import LogoutButton from "../Logout";
 import { setMessage, setDate } from "../../reduxLogic/reducers/clientReducer";
 import Friends from "./friends";
 
-const socket = new WebSocket("ws://[::]:8000");
+var socket = new WebSocket("ws://[::]:8000");
 
 function Message() {
     const dispatch = useDispatch();
@@ -29,7 +29,7 @@ function Message() {
 
     async function handleMessge(event) {
         event.preventDefault(event)
-        // if (!socket) socket = new WebSocket("ws://[::]:8000");
+        socket.onclose = () => socket = new WebSocket("ws://[::]:8000");
 
         socket.onopen = () => {
             console.log("user connected !");
