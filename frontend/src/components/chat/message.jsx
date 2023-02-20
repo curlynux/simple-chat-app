@@ -26,10 +26,10 @@ function Message() {
         return await dispatch(setDate(formatTime()));
     }
     returnDate();
+    socket.onclose = () => socket = new WebSocket("ws://[::]:8000");
 
     async function handleMessge(event) {
         event.preventDefault(event)
-        socket.onclose = () => socket = new WebSocket("ws://[::]:8000");
 
         socket.onopen = () => {
             console.log("user connected !");
