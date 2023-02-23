@@ -12,14 +12,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import loginSlice from "./reduxLogic/reducers/loginReducer";
 import messageSlice from './reduxLogic/reducers/clientReducer';
 import chatSlice from "./reduxLogic/reducers/chatList";
-import friendList from "./reduxLogic/reducers/friendList";
+import friendSlice from "./reduxLogic/reducers/friendList";
 
 const store = configureStore({
   reducer: {
     login: loginSlice.reducer,
     message: messageSlice.reducer,
     chatList: chatSlice.reducer,
-    friendList: friendList.reducer
+    friendSlice: friendSlice.reducer
   }})
   
 const root = ReactDOM.createRoot(document.getElementById('root'));

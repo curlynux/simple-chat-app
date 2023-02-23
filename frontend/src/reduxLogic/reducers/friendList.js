@@ -6,7 +6,7 @@ const initialState = {
     profilePicture: "",
     userId: ""
 }
-const friendList = createSlice({
+const friendSlice = createSlice({
     name: "friend",
     initialState,
     reducers: {
@@ -17,5 +17,5 @@ const friendList = createSlice({
     }
 });
 
-export const {setId, setLogin, setProfilePicture, setUserId} = friendList.actions;
-export default friendList;
+export const {setId, setLogin, setProfilePicture, setUserId} = friendSlice.actions;
+export default friendSlice;

@@ -1,14 +1,16 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { setLogin, setUserId, setId } from "../../reduxLogic/reducers/friendList";
+import { useSelector, useDispatch } from "react-redux";
+import { setLogin, setUserId, setId, setProfilePicture } from "../../reduxLogic/reducers/friendList";
 
 function Friends() {
     const token = useSelector((state) => state.login.token);
-    const userId = useSelector((state) => state.friendList.userId);
-    const login = useSelector((state) => state.friendList.login);
-    const id = useSelector((state) => state.friendList.id);
+    const userId = useSelector((state) => state.friendSlice.userId);
+    const login = useSelector((state) => state.friendSlice.login);
+    const id = useSelector((state) => state.friendSlice.id);
+    const dispatch = useDispatch();
 
-    setId("ID");
+    // setId("ID");
+    // console.log(id);
     useEffect(() => {
         fetch("http://localhost:1337/friends",
             {
@@ -21,14 +23,14 @@ function Friends() {
             }).then((response) => response.json().then((data) => {
                 console.log(data);
                 data.forEach(item => {
-                    for (var i in item) {
-                        setLogin(item.login);
-                        setId(item._id);
-                        setUserId(item.userId);
-                        console.log(item.email);
-                    }
+                    dispatch(setLogin(item.login));
+                    dispatch(setId(item._id));
+                    dispatch(setUserId(item.userId));
+                    dispatch(setProfilePicture("path/to/profilepicture"))
+                    console.log(item.email);
                 });
             }));
+
     }, [token])
 
     return (
