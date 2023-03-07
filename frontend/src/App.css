@@ -69,6 +69,12 @@ input[type="text"]
     margin-left: auto;
 }
 
+.Friends {
+    border: 3px solid black;
+    display: flex;
+    /* justify-content: flex-start; */
+}
+
 @media only screen 
     and (device-width : 375px) 
     and (device-height : 812px) 

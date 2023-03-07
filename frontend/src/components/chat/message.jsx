@@ -2,7 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import LogoutButton from "../Logout";
 import { setMessage, setDate } from "../../reduxLogic/reducers/clientReducer";
 import Friends from "./friends";
-
+import { setLoading } from "../../reduxLogic/reducers/friendList";
+import { useEffect } from "react";
 var socket = new WebSocket("ws://[::]:8000");
 
 function Message() {
@@ -12,6 +13,7 @@ function Message() {
     const userId = useSelector((state) => state.login.userId);
     const token = useSelector((state) => state.login.token);
     const login = useSelector((state) => state.login.login);
+    const loading = useSelector((state) => state.friendSlice.loading);
 
     function formatTime() {
         var date = new Date();
@@ -22,10 +24,7 @@ function Message() {
         return (`${hour}:${minute}:${second}`)
     }
 
-    async function returnDate() {
-        return await dispatch(setDate(formatTime()));
-    }
-    returnDate();
+
     socket.onclose = () => socket = new WebSocket("ws://[::]:8000");
 
     async function handleMessge(event) {
@@ -36,33 +35,47 @@ function Message() {
             socket.send(JSON.stringify("TEST"));
         }
         console.log(date);
-        returnDate();
+        dispatch(setDate(formatTime()));
         socket.send(JSON.stringify({
             login, userId, message, date, token
         }));
+
         console.log("message sent !")
     }
 
-    return (<div className="chat">
-        <div className="messageHistory">
-            <div className="text">
-                <strong>{login}</strong>
-                <span>{date}</span>
-                <p>placeholder</p>
+    // dispatch(setLoading(true))
+    // console.log(loading);
+    // if (loading === true) console.log("oh damn");
+    useEffect(() => {
+        setTimeout(() => {
+            dispatch(setLoading(true))
+            console.log(loading);
+        }, 3000)
+    }, [loading])
+    return (
+        <div className="chat">
+            <div className="messageHistory">
+                <div className="text">
+                    <strong>{login}</strong>
+                    <span>{date}</span>
+                    <p>placeholder</p>
+                </div>
+                <div className="text">
+                    <strong>{login}</strong>
+                    <span>{date}</span>
+                    <p>placehorder</p>
+                </div>
             </div>
-            <div className="text">
-                <strong>{login}</strong>
-                <span>{date}</span>
-                <p>placehorder</p>
-            </div>
+            <form>
+                <input type="text" name="text" value={message} onChange={(e) => dispatch(setMessage(e.target.value))} />
+                <button name="send" onClick={handleMessge} type="submit">send</button>
+            </form>
+            <LogoutButton />
+            {loading && <Friends />}
+
         </div>
-        <form>
-            <input type="text" name="text" value={message} onChange={(e) => dispatch(setMessage(e.target.value))} />
-            <button name="send" onClick={handleMessge} type="submit">send</button>
-        </form>
-        <LogoutButton />
-        <Friends />
-    </div>)
+    )
+
 }
 
 export default Message;
