@@ -14,4 +14,4 @@ const chatSlice = createSlice({
 });
 
 export const {setProfilePicture, setPewMessage} = chatSlice.actions;
-export default chatSlice;
+export default chatSlice; 

@@ -7,75 +7,87 @@ import { useEffect } from "react";
 var socket = new WebSocket("ws://[::]:8000");
 
 function Message() {
-    const dispatch = useDispatch();
-    const message = useSelector((state) => state.message.message);
-    const date = useSelector((state) => state.message.date);
-    const userId = useSelector((state) => state.login.userId);
-    const token = useSelector((state) => state.login.token);
-    const login = useSelector((state) => state.login.login);
-    const loading = useSelector((state) => state.friendSlice.loading);
+	const dispatch = useDispatch();
+	const message = useSelector((state) => state.message.message);
+	const date = useSelector((state) => state.message.date);
+	const userId = useSelector((state) => state.login.userId);
+	const token = useSelector((state) => state.login.token);
+	const login = useSelector((state) => state.login.login);
+	const loading = useSelector((state) => state.friendSlice.loading);
 
-    function formatTime() {
-        var date = new Date();
-        var hour = date.getHours();
-        var minute = date.getMinutes();
-        var second = date.getSeconds();
+	function formatTime() {
+		var date = new Date();
+		var hour = date.getHours();
+		var minute = date.getMinutes();
+		var second = date.getSeconds();
 
-        return (`${hour}:${minute}:${second}`)
-    }
+		return `${hour}:${minute}:${second}`;
+	}
 
+	socket.onclose = () => (socket = new WebSocket("ws://[::]:8000"));
 
-    socket.onclose = () => socket = new WebSocket("ws://[::]:8000");
+	async function handleMessge(event) {
+		event.preventDefault(event);
 
-    async function handleMessge(event) {
-        event.preventDefault(event)
+		socket.onopen = () => {
+			console.log("user connected !");
+			socket.send(JSON.stringify("TEST"));
+		};
+		console.log(date);
+		dispatch(setDate(formatTime()));
+		socket.send(
+			JSON.stringify({
+				login,
+				userId,
+				message,
+				date,
+				token,
+			})
+		);
 
-        socket.onopen = () => {
-            console.log("user connected !");
-            socket.send(JSON.stringify("TEST"));
-        }
-        console.log(date);
-        dispatch(setDate(formatTime()));
-        socket.send(JSON.stringify({
-            login, userId, message, date, token
-        }));
+		console.log("message sent !");
+	}
 
-        console.log("message sent !")
-    }
+	useEffect(() => {
+		setTimeout(() => {
+			dispatch(setLoading(true));
+			console.log(loading);
+		}, 3000);
+	}, [loading, dispatch]);
+	return (
+		<div className="chat">
+			<div className="wrapper">
+				<div className="side1">{loading && <Friends />}</div>
+				<div className="side2">
+					<div className="messageHistory">
+						<div className="text">
+							<strong>{login}</strong>
+							<span>{date}</span>
+							<p>placeholder</p>
+						</div>
+						<div className="text">
+							<strong>{login}</strong>
 
-    // dispatch(setLoading(true))
-    // console.log(loading);
-    // if (loading === true) console.log("oh damn");
-    useEffect(() => {
-        setTimeout(() => {
-            dispatch(setLoading(true))
-            console.log(loading);
-        }, 3000)
-    }, [loading])
-    return (
-        <div className="chat">
-            <div className="messageHistory">
-                <div className="text">
-                    <strong>{login}</strong>
-                    <span>{date}</span>
-                    <p>placeholder</p>
-                </div>
-                <div className="text">
-                    <strong>{login}</strong>
-                    <span>{date}</span>
-                    <p>placehorder</p>
-                </div>
-            </div>
-            <form>
-                <input type="text" name="text" value={message} onChange={(e) => dispatch(setMessage(e.target.value))} />
-                <button name="send" onClick={handleMessge} type="submit">send</button>
-            </form>
-            <LogoutButton />
-            {loading && <Friends />}
-
-        </div>
-    )
-
+							<span>{date}</span>
+							<p>placehorder</p>
+						</div>
+					</div>
+					<form>
+						<input
+							type="text"
+							name="text"
+							value={message}
+							onChange={(e) => dispatch(setMessage(e.target.value))}
+						/>
+						<button name="send" onClick={handleMessge} type="submit">
+							send
+						</button>
+					</form>
+				</div>
+				<LogoutButton />
+			</div>
+		</div>
+	);
 }
 
 export default Message;

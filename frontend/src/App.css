@@ -11,6 +11,7 @@
 {
     display: flex;
     border: 1px solid #000000;
+    width: 100%;
 }
 
 .allInput 
@@ -34,7 +35,7 @@
 
 .messageHistory 
 {
-    width: 100%;
+    width: 50%;
     
     border: 1px solid black;
     height: calc(100vh - 95px);
@@ -69,10 +70,19 @@ input[type="text"]
     margin-left: auto;
 }
 
+.side1 {
+    width: 30%;
+    display: flex;
+}
+
+.side2 {
+    width: 70%;
+    display: flex;
+}
 .Friends {
     border: 3px solid black;
     display: flex;
-    /* justify-content: flex-start; */
+    width: 100%;
 }
 
 @media only screen 

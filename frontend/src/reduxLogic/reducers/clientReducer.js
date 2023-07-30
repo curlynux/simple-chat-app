@@ -14,4 +14,4 @@ const messageSlice = createSlice({
 })
 
 export const {setMessage, setDate} = messageSlice.actions
-export default messageSlice;
+export default messageSlice; 
