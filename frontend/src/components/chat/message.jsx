@@ -24,17 +24,11 @@ function Message() {
 		return `${hour}:${minute}:${second}`;
 	}
 
-	socket.onclose = () => (socket = new WebSocket("ws://[::]:8000"));
-
-	async function handleMessge(event) {
-		event.preventDefault(event);
-
+	useEffect(() => {
 		socket.onopen = () => {
 			console.log("user connected !");
 			socket.send(JSON.stringify("TEST"));
 		};
-		console.log(date);
-		dispatch(setDate(formatTime()));
 		socket.send(
 			JSON.stringify({
 				login,
@@ -44,8 +38,22 @@ function Message() {
 				token,
 			})
 		);
+		console.log("websocket connected");
+	}, [login, userId, message, date, token]);
+	async function handleMessge(Event) {
+		Event.preventDefault(Event);
 
-		console.log("message sent !");
+		socket.send(
+			JSON.stringify({
+				login,
+				userId,
+				message,
+				date,
+				token,
+			})
+		);
+		console.log(date);
+		dispatch(setDate(formatTime()));
 	}
 
 	useEffect(() => {
