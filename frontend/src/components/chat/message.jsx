@@ -69,7 +69,9 @@ function Message() {
 							<strong>{login}</strong>
 
 							<span>{date}</span>
-							<p>placehorder</p>
+							<p onChange={(Event) => dispatch(setMessage(Event.target.value))}>
+								{message}
+							</p>
 						</div>
 					</div>
 					<form>
