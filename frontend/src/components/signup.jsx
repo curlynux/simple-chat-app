@@ -16,7 +16,6 @@ var Signup = () => {
 
 	async function handleSubmit(Event) {
 		Event.preventDefault();
-		console.log(Event);
 		await fetch("http://localhost:1337/signup", {
 			method: "POST",
 			headers: {

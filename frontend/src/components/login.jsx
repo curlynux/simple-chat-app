@@ -8,7 +8,6 @@ import {
 	setPassword,
 	setUserId,
 	setToken,
-	setError,
 	setIsLoading,
 } from "../reduxLogic/reducers/loginReducer";
 var Login = () => {
@@ -39,16 +38,17 @@ var Login = () => {
 		})
 			.then(async (response) => {
 				return await response.json().then((data) => {
+					console.log(data.token);
 					dispatch(setToken(data.token));
 					dispatch(setLogin(data.login));
-					dispatch(setUserId(data.userId));
+					// dispatch(setUserId(data.userId));
 					console.log(data);
 					navigate("/home", { replace: true });
 				});
 			})
 			.catch((error) => {
 				console.log(error);
-				dispatch(setError(error));
+				// dispatch(setError(error));
 			});
 		setIsLoading(true);
 	};

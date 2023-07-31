@@ -35,9 +35,7 @@ function Friends() {
 	return (
 		<div className="Friends">
 			<ul>
-				{object?.map((item) => {
-					return <li key={item._id}>{item.login}</li>;
-				})}
+				<li>TEST</li>
 			</ul>
 		</div>
 	);
